@@ -1254,6 +1254,14 @@ export const createScene = (
   let stars: StarNode[] = [];
   let meteors: Meteor[] = [];
 
+  // На узких экранах фон должен быть спокойным: меньше звёзд, без метеоров,
+  // медленный дрейф и мерцание — контент лаборатории лежит прямо на сцене.
+  const compact = width < 760;
+  const starCount = compact ? 40 : 90;
+  const linkDist = compact ? 74 : 95;
+  const twinkleSpeed = compact ? 1.6 : 3;
+  const drift = compact ? 0.22 : 0.5;
+
   const starSprite = (hue: number): HTMLCanvasElement => {
     // quantize hue so the sprite cache stays small
     const q = Math.round(hue / 10) * 10;
@@ -1274,8 +1282,8 @@ export const createScene = (
     return {
       x: rand(10, width - 10),
       y: rand(10, height - 10),
-      vx: rand(-0.5, 0.5),
-      vy: rand(-0.5, 0.5),
+      vx: rand(-drift, drift),
+      vy: rand(-drift, drift),
       size: rand(2.2, 4.8),
       seed: rand(0, 100),
       hue,
@@ -1283,7 +1291,7 @@ export const createScene = (
     };
   };
 
-  for (let i = 0; i < 90; i += 1) {
+  for (let i = 0; i < starCount; i += 1) {
     stars.push(spawnStar());
   }
 
@@ -1297,8 +1305,8 @@ export const createScene = (
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
 
-      // Spawn meteors
-      if (Math.random() < 0.035 * k) {
+      // Spawn meteors (off on compact screens)
+      if (!compact && Math.random() < 0.035 * k) {
         meteors.push({
           x: rand(0, width * 0.75),
           y: rand(0, height * 0.4),
@@ -1341,8 +1349,6 @@ export const createScene = (
         );
         ctx.stroke();
       }
-
-      const linkDist = 95;
 
       // Update positions
       for (const s of stars) {
@@ -1405,7 +1411,7 @@ export const createScene = (
 
       // Draw stars (baked per-hue glow sprite + star core)
       for (const s of stars) {
-        const twinkle = 0.5 + Math.sin(time * 3 + s.seed) * 0.5;
+        const twinkle = 0.5 + Math.sin(time * twinkleSpeed + s.seed) * 0.5;
         const size = s.size * (1 + twinkle * 0.5);
         drawGlow(ctx, s.sprite, s.x, s.y, size * 5, 0.55 + twinkle * 0.3);
         ctx.save();

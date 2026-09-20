@@ -250,3 +250,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* На телефонах фон-созвездия дополнительно приглушаем: он лежит под текстом */
+@media (max-width: 759px) {
+  .page [data-element="adaptive"] {
+    opacity: 0.6;
+  }
+}

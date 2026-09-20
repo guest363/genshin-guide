@@ -1,7 +1,8 @@
 .aura {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  /* ниже всего контента, но выше фона body — звёзды не залезают на текст и кнопки */
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
 }
