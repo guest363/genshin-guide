@@ -782,12 +782,12 @@ export const createScene = (
     const spawnSpark = (): Spark => ({
       x: rand(0, width),
       y: rand(0, height),
-      vx: rand(-3.0, 3.0),
-      vy: rand(-3.0, 3.0),
+      vx: rand(-1.1, 1.1),
+      vy: rand(-1.1, 1.1),
       size: rand(2.5, 6.0),
       alpha: 1,
       life: 0,
-      maxLife: rand(25, 55),
+      maxLife: rand(45, 90),
     });
 
     for (let i = 0; i < 90; i += 1) {
@@ -807,7 +807,7 @@ export const createScene = (
         // Lightning bolt periodic discharge
         lightningCooldown -= k;
         if (lightningCooldown <= 0) {
-          lightningCooldown = rand(10, 25);
+          lightningCooldown = rand(45, 95);
           const x1 =
             pointer && pointer.active && Math.random() < 0.6
               ? pointer.x
@@ -818,7 +818,7 @@ export const createScene = (
               : rand(0, height * 0.3);
           const x2 = rand(0, width);
           const y2 = rand(height * 0.5, height);
-          activeBolts.push({ x1, y1, x2, y2, life: 6 });
+          activeBolts.push({ x1, y1, x2, y2, life: 8 });
         }
 
         // Draw lightning bolts
@@ -830,7 +830,7 @@ export const createScene = (
             continue;
           }
 
-          const boltAlpha = bolt.life / 6;
+          const boltAlpha = bolt.life / 8;
 
           // Outer purple plasma glow
           ctx.strokeStyle = `rgba(192, 132, 252, ${boltAlpha * 0.9})`;
@@ -852,8 +852,8 @@ export const createScene = (
           s.life += k;
           s.x += s.vx * k;
           s.y += s.vy * k;
-          s.vx += rand(-0.8, 0.8) * k;
-          s.vy += rand(-0.8, 0.8) * k;
+          s.vx += rand(-0.3, 0.3) * k;
+          s.vy += rand(-0.3, 0.3) * k;
 
           // Proximity static mini-arcs
           for (let j = i - 1; j >= 0; j -= 1) {

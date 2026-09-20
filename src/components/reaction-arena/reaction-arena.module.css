@@ -197,10 +197,86 @@
   width: 1.65rem;
   height: 1.65rem;
   border-radius: 50%;
+  box-shadow: 0 0 14px var(--element), inset 0 -3px 5px rgb(0 0 0 / 30%);
+}
+
+/* Пиро — тлеющий уголь: жаркое ядро снизу, тёмная корка по краю */
+.element[data-element="pyro"] .orb {
   background:
-    radial-gradient(circle at 34% 30%, rgb(255 255 255 / 85%), transparent 42%),
-    var(--element);
-  box-shadow: 0 0 14px var(--element);
+    radial-gradient(circle at 32% 26%, rgb(255 255 255 / 70%), transparent 32%),
+    radial-gradient(circle at 50% 80%, #ffe9a8 0%, #ffb054 32%, #ff6a3d 60%, #8f1d10 100%);
+}
+
+/* Гидро — пузырь: прозрачная середина, светлая кромка, двойной блик */
+.element[data-element="hydro"] .orb {
+  background:
+    radial-gradient(circle at 32% 28%, rgb(255 255 255 / 90%), transparent 26%),
+    radial-gradient(circle at 70% 76%, rgb(255 255 255 / 40%), transparent 28%),
+    radial-gradient(circle at 50% 50%, rgb(125 211 252 / 18%) 0%, rgb(56 152 236 / 45%) 68%, #c9efff 94%);
+}
+
+/* Анемо — вихрь: светло-бирюзовая сфера со спиральными потоками */
+.element[data-element="anemo"] .orb {
+  background:
+    radial-gradient(circle at 32% 28%, rgb(255 255 255 / 80%), transparent 36%),
+    conic-gradient(
+      from 220deg at 50% 50%,
+      rgb(255 255 255 / 0) 0%,
+      rgb(255 255 255 / 85%) 14%,
+      rgb(255 255 255 / 0) 30%,
+      rgb(255 255 255 / 0) 48%,
+      rgb(255 255 255 / 60%) 64%,
+      rgb(255 255 255 / 0) 80%
+    ),
+    radial-gradient(circle at 50% 44%, #c2f6e8 0%, #73e0c9 44%, #1f6b5a 100%);
+}
+
+/* Электро — плазма: белое калёное ядро, фиолетовая корона */
+.element[data-element="electro"] .orb {
+  background:
+    radial-gradient(circle at 50% 46%, #ffffff 0%, #e9d5ff 24%, #c084fc 46%, #9333ea 72%, #3b0764 100%);
+}
+
+/* Дендро — семя-лист: зелёная сфера с золотистой прожилкой */
+.element[data-element="dendro"] .orb {
+  background:
+    radial-gradient(circle at 32% 26%, rgb(255 255 255 / 78%), transparent 34%),
+    conic-gradient(
+      from 140deg at 50% 50%,
+      rgb(255 255 255 / 0) 0%,
+      rgb(255 255 255 / 0) 30%,
+      rgb(254 240 138 / 60%) 42%,
+      rgb(255 255 255 / 0) 54%,
+      rgb(255 255 255 / 0) 100%
+    ),
+    radial-gradient(circle at 50% 40%, #d9f5a0 0%, #a5e05a 42%, #3f7a17 100%);
+}
+
+/* Крио — гранёный лёд: светлая сфера с ледяными сколами */
+.element[data-element="cryo"] .orb {
+  background:
+    radial-gradient(circle at 32% 28%, rgb(255 255 255 / 88%), transparent 32%),
+    conic-gradient(
+      from 45deg at 50% 50%,
+      rgb(255 255 255 / 0) 0%,
+      rgb(255 255 255 / 50%) 24%,
+      rgb(255 255 255 / 0) 32%,
+      rgb(255 255 255 / 0) 48%,
+      rgb(255 255 255 / 32%) 54%,
+      rgb(255 255 255 / 0) 60%,
+      rgb(255 255 255 / 0) 78%,
+      rgb(255 255 255 / 50%) 84%,
+      rgb(255 255 255 / 0) 90%
+    ),
+    radial-gradient(circle at 50% 42%, #ffffff 0%, #b7e9fd 46%, #4fb2e4 100%);
+}
+
+/* Гео — самоцвет: янтарная сфера с гранью-сколом */
+.element[data-element="geo"] .orb {
+  background:
+    radial-gradient(circle at 34% 30%, rgb(255 255 255 / 78%), transparent 34%),
+    linear-gradient(160deg, rgb(255 255 255 / 0) 46%, rgb(146 64 14 / 55%) 47%),
+    radial-gradient(circle at 50% 38%, #ffe9a8 0%, #e6c15a 48%, #8a5c0d 100%);
 }
 
 .element[data-element="pyro"] {
