@@ -407,6 +407,39 @@
   font-size: 0.85rem;
 }
 
+/* Расшифровка тумблеров: title-тултипы не работают на тач-экранах */
+.signHints {
+  display: none;
+  margin: 0;
+  grid-gap: 0.1rem;
+  color: var(--mist);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.signHints span {
+  display: block;
+}
+
+@media (max-width: 820px) {
+  .signHints {
+    display: grid;
+  }
+
+  .plate {
+    padding: 0.5rem 1rem;
+    max-width: calc(100% - 1.6rem);
+  }
+
+  .plateName {
+    font-size: 1.02rem;
+  }
+
+  .plateNote {
+    font-size: 0.76rem;
+  }
+}
+
 @media (max-width: 640px) {
   .stage {
     aspect-ratio: auto;

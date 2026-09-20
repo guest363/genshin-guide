@@ -23,6 +23,9 @@ type Plate = {
   result: ReactionResult | null | undefined;
 };
 
+/** Сколько висит плашка реакции — на телефоне нужно больше времени прочитать. */
+const PLATE_MS = 3400;
+
 type Chip = {
   key: string;
   label: string;
@@ -106,7 +109,7 @@ export const ReactionArena = ({ onReact }: ReactionArenaProps) => {
   const showPlate = (result: ReactionResult | null) => {
     window.clearTimeout(plateTimer.current);
     setPlate({ key: Date.now(), result });
-    plateTimer.current = window.setTimeout(() => setPlate(null), 1900);
+    plateTimer.current = window.setTimeout(() => setPlate(null), PLATE_MS);
   };
 
   const cast = (clientX: number, clientY: number) => {
@@ -155,7 +158,7 @@ export const ReactionArena = ({ onReact }: ReactionArenaProps) => {
     syncVisual();
     window.clearTimeout(plateTimer.current);
     setPlate({ key: Date.now(), result: undefined });
-    plateTimer.current = window.setTimeout(() => setPlate(null), 1900);
+    plateTimer.current = window.setTimeout(() => setPlate(null), PLATE_MS);
     onReact(null);
   };
 
@@ -288,6 +291,10 @@ export const ReactionArena = ({ onReact }: ReactionArenaProps) => {
             Смыть
           </button>
         </div>
+        <p className={styles.signHints}>
+          <span>☾ Лунное знамение — Гидро-реакции становятся Лунными</span>
+          <span>✦ Звёздный блеск — Крио-реакции становятся Звёздными</span>
+        </p>
         <p className={styles.status} aria-live="polite">
           {statusLine}
         </p>
