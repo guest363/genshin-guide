@@ -1,4 +1,5 @@
 import type { WeaponId } from "../../lib/character";
+import { withBase } from "../../lib/with-base";
 import styles from "./weapon-sign.module.css";
 
 type WeaponSignProps = {
@@ -7,11 +8,11 @@ type WeaponSignProps = {
 };
 
 const ICON: Record<WeaponId, string> = {
-  sword: "/media/weapons/UI_GachaTypeIcon_Sword.png",
-  claymore: "/media/weapons/UI_GachaTypeIcon_Claymore.png",
-  polearm: "/media/weapons/UI_GachaTypeIcon_Pole.png",
-  bow: "/media/weapons/UI_GachaTypeIcon_Bow.png",
-  catalyst: "/media/weapons/UI_GachaTypeIcon_Catalyst.png",
+  sword: withBase("/media/weapons/UI_GachaTypeIcon_Sword.png"),
+  claymore: withBase("/media/weapons/UI_GachaTypeIcon_Claymore.png"),
+  polearm: withBase("/media/weapons/UI_GachaTypeIcon_Pole.png"),
+  bow: withBase("/media/weapons/UI_GachaTypeIcon_Bow.png"),
+  catalyst: withBase("/media/weapons/UI_GachaTypeIcon_Catalyst.png"),
 };
 
 export const WeaponSign = ({ weapon, label }: WeaponSignProps) => (

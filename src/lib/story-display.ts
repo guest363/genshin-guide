@@ -79,7 +79,8 @@ const mergeWhoAndOfficial = (steps: CharacterStep[]): CharacterStep[] => {
   return rest;
 };
 
-const isLocal = (image: CharacterImage): boolean => image.url.startsWith("/media/");
+// url может содержать базу деплоя (например "/genshin-guide/media/...")
+const isLocal = (image: CharacterImage): boolean => image.url.includes("/media/");
 
 const isEnglishDump = (image: CharacterImage): boolean => {
   const mark = `${image.id} ${image.alt} ${image.url}`.toLowerCase();

@@ -8,6 +8,7 @@ import type {
   RegionId,
   WeaponId,
 } from "./character";
+import { withBase } from "./with-base";
 
 const ELEMENTS = new Set<ElementId>([
   "anemo",
@@ -76,25 +77,25 @@ const readSteps = (value: unknown, field: string): CharacterStep[] => {
       body: cleanStepText(readString(item.body, `${field}.body`)),
     };
     if (typeof item.iconUrl === "string" && isLocalOrRemoteMedia(item.iconUrl)) {
-      step.iconUrl = item.iconUrl;
+      step.iconUrl = withBase(item.iconUrl);
     }
     if (
       typeof item.previewGif === "string" &&
       isLocalOrRemoteMedia(item.previewGif)
     ) {
-      step.previewGif = item.previewGif;
+      step.previewGif = withBase(item.previewGif);
     }
     if (
       typeof item.previewVideo === "string" &&
       isLocalOrRemoteMedia(item.previewVideo)
     ) {
-      step.previewVideo = item.previewVideo;
+      step.previewVideo = withBase(item.previewVideo);
     }
     if (
       typeof item.previewPoster === "string" &&
       isLocalOrRemoteMedia(item.previewPoster)
     ) {
-      step.previewPoster = item.previewPoster;
+      step.previewPoster = withBase(item.previewPoster);
     }
     steps.push(step);
   }
@@ -113,7 +114,7 @@ const readImages = (value: unknown): CharacterImage[] => {
     images.push({
       id: readString(item.id, "images.id"),
       alt: readString(item.alt, "images.alt"),
-      url: readString(item.url, "images.url"),
+      url: withBase(readString(item.url, "images.url")),
     });
   }
   return images;

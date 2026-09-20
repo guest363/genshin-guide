@@ -3,4 +3,5 @@ dist
 test-results
 playwright-report
 *.log
+*.zip
 .DS_Store

@@ -3,8 +3,9 @@ import { CatalogPage } from "./pages/catalog-page";
 import { CharacterPage } from "./pages/character-page";
 import { ReactionsPage } from "./pages/reactions-page";
 
+// basename держит роуты рабочими под базой деплоя (GitHub Pages: /genshin-guide/)
 export const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={import.meta.env.BASE_URL}>
     <Routes>
       <Route path="/" element={<CatalogPage />} />
       <Route path="/personazh/:slug" element={<CharacterPage />} />
