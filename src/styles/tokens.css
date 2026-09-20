@@ -1,0 +1,38 @@
+:root {
+  --ink: #070b18;
+  --abyss: #10182a;
+  --panel: #141c2e;
+  --panel-inner: #0c1220;
+  --moon: #e7edf7;
+  --mist: #9aa8c2;
+  --frost: #8ec8e0;
+  --gilt: #d4b56a;
+  --gilt-dim: #9a7d4a;
+  --line: rgb(224 196 138 / 22%);
+  --danger: #d9786a;
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --font-display: "Unbounded", "Onest", sans-serif;
+  --font-body: "Onest", "Manrope", "Segoe UI", sans-serif;
+  --pyro: #ff7b4a;
+  --hydro: #3da6ff;
+  --anemo: #73e0c9;
+  --electro: #c08cff;
+  --dendro: #a5e05a;
+  --cryo: #9fe7ff;
+  --geo: #e6c15a;
+  --adaptive: #d7c4ff;
+  --space-xs: 0.35rem;
+  --space-sm: 0.65rem;
+  --space-md: 1rem;
+  --space-lg: 1.75rem;
+  --space-xl: 2.75rem;
+  --radius-shell: 1.75rem;
+  --radius-inner: 1.35rem;
+  --shadow-card: 0 18px 40px rgb(0 0 0 / 28%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ease: linear;
+  }
+}

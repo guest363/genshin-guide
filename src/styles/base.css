@@ -1,0 +1,72 @@
+@layer reset, base, tokens, app-components;
+
+@import "./tokens.css" layer(tokens);
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button,
+  input {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--ink);
+    color: var(--moon);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.55;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(1200px 500px at 10% -10%, rgb(224 196 138 / 10%), transparent 55%),
+      radial-gradient(900px 420px at 100% 0%, rgb(61 166 255 / 8%), transparent 50%),
+      linear-gradient(180deg, #0b1220 0%, var(--ink) 42%);
+  }
+
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+
+  a {
+    color: var(--gilt);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gilt);
+    outline-offset: 3px;
+  }
+}

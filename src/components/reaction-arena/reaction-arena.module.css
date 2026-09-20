@@ -1,0 +1,349 @@
+.shell {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 22rem;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-shell);
+  background:
+    radial-gradient(58% 52% at 50% 55%, rgb(215 196 255 / 7%), transparent 70%),
+    #0a0f1b;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.stage:focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 3px;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.plate {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 1.1rem;
+  background: rgb(7 11 24 / 72%);
+  border: 1px solid currentColor;
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: plate-in 0.42s var(--ease);
+}
+
+.plateName {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.6vw, 1.7rem);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 22px currentColor;
+}
+
+.plateNote {
+  color: var(--moon);
+  font-size: 0.82rem;
+  opacity: 0.9;
+}
+
+.plateMute {
+  color: var(--mist);
+}
+
+.plateResidue {
+  color: var(--mist);
+  font-size: 0.74rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  min-height: 1.7rem;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: rgb(12 18 32 / 55%);
+}
+
+.readoutEmpty {
+  color: var(--mist);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+}
+
+.chip {
+  --chip: var(--moon);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.16rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--chip) 45%, transparent);
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--chip) 80%, white);
+  background: color-mix(in srgb, var(--chip) 12%, transparent);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--chip) 22%, transparent);
+}
+
+.chip[data-element="pyro"] {
+  --chip: var(--pyro);
+}
+
+.chip[data-element="hydro"] {
+  --chip: var(--hydro);
+}
+
+.chip[data-element="anemo"] {
+  --chip: var(--anemo);
+}
+
+.chip[data-element="electro"] {
+  --chip: var(--electro);
+}
+
+.chip[data-element="dendro"] {
+  --chip: var(--dendro);
+}
+
+.chip[data-element="cryo"] {
+  --chip: var(--cryo);
+}
+
+.chip[data-element="geo"] {
+  --chip: var(--geo);
+}
+
+.chipCount {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes plate-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.86);
+    filter: blur(6px);
+  }
+
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.dock {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.element {
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  padding: 0.55rem 0.6rem 0.45rem;
+  min-width: 4.6rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: #0c1220;
+  color: var(--moon);
+  cursor: pointer;
+  transition:
+    transform 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.element:hover {
+  transform: translateY(-2px);
+}
+
+.element:focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 2px;
+}
+
+.element .orb {
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, rgb(255 255 255 / 85%), transparent 42%),
+    var(--element);
+  box-shadow: 0 0 14px var(--element);
+}
+
+.element[data-element="pyro"] {
+  --element: var(--pyro);
+}
+
+.element[data-element="hydro"] {
+  --element: var(--hydro);
+}
+
+.element[data-element="anemo"] {
+  --element: var(--anemo);
+}
+
+.element[data-element="electro"] {
+  --element: var(--electro);
+}
+
+.element[data-element="dendro"] {
+  --element: var(--dendro);
+}
+
+.element[data-element="cryo"] {
+  --element: var(--cryo);
+}
+
+.element[data-element="geo"] {
+  --element: var(--geo);
+}
+
+.element[data-active] {
+  border-color: var(--element);
+  box-shadow:
+    0 0 0 1px var(--element),
+    0 6px 18px rgb(0 0 0 / 35%),
+    0 0 22px color-mix(in srgb, var(--element) 45%, transparent);
+  transform: translateY(-2px);
+}
+
+.element[data-active] .elementLabel {
+  color: var(--element);
+}
+
+.elementLabel {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--mist);
+}
+
+.sign {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.9rem;
+  border: 1px dashed var(--line);
+  border-radius: 1rem;
+  background: transparent;
+  color: var(--mist);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+
+.sign:hover {
+  color: var(--moon);
+  border-color: var(--mist);
+}
+
+.sign:focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 2px;
+}
+
+.sign[data-on] {
+  color: var(--moon);
+  border-style: solid;
+  border-color: var(--chip-sign, var(--gilt));
+  background: color-mix(in srgb, var(--chip-sign, var(--gilt)) 12%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--chip-sign, var(--gilt)) 30%, transparent);
+}
+
+.sign[data-sign="lunar"] {
+  --chip-sign: #8f9bff;
+}
+
+.sign[data-sign="stellar"] {
+  --chip-sign: #9fd8ff;
+}
+
+.signGlyph {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.wash {
+  margin-left: auto;
+  padding: 0 1rem;
+  border: 1px dashed var(--line);
+  border-radius: 1rem;
+  background: transparent;
+  color: var(--mist);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition:
+    color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.wash:hover {
+  color: var(--moon);
+  border-color: var(--mist);
+}
+
+.wash:focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 2px;
+}
+
+.status {
+  margin: 0;
+  min-height: 1.3em;
+  color: var(--mist);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .stage {
+    aspect-ratio: auto;
+    height: min(64vw, 20rem);
+    min-height: 17rem;
+  }
+
+  .element {
+    min-width: 3.9rem;
+    padding: 0.45rem 0.5rem 0.4rem;
+  }
+
+  .wash {
+    margin-left: 0;
+  }
+}

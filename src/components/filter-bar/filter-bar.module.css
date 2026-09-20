@@ -1,0 +1,73 @@
+.filters {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.search {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  background: var(--panel-inner);
+  color: var(--moon);
+}
+
+.search::placeholder {
+  color: var(--mist);
+}
+
+.group {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.label {
+  margin: 0;
+  color: var(--mist);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chip {
+  padding: 0.42rem 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 4%);
+  color: var(--moon);
+  cursor: pointer;
+  transition:
+    transform 420ms var(--ease),
+    background 420ms var(--ease),
+    border-color 420ms var(--ease);
+}
+
+.chip:hover {
+  transform: translateY(-1px);
+}
+
+.chipActive {
+  border-color: var(--gilt);
+  background: rgb(224 196 138 / 14%);
+  color: var(--gilt);
+}
+
+.reset {
+  justify-self: start;
+  padding: 0.5rem 0.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mist);
+  cursor: pointer;
+}
+
+.reset:hover {
+  color: var(--moon);
+}

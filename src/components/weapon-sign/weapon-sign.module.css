@@ -1,0 +1,62 @@
+.sign {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  min-width: 8.5rem;
+}
+
+.medallion {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--accent) 28%, #16120c), #0a0d16 72%);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 28%, transparent),
+    inset 0 1px 0 rgb(255 255 255 / 18%);
+}
+
+.ring {
+  position: absolute;
+  inset: 0.35rem;
+  border-radius: 50%;
+  border: 1px dashed color-mix(in srgb, var(--accent) 55%, transparent);
+  animation: spin 18s linear infinite;
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  width: 3.6rem;
+  height: 3.6rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 45%, transparent));
+}
+
+.caption {
+  color: var(--mist);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    animation: none;
+  }
+}

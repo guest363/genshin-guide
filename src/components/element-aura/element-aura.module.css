@@ -1,0 +1,63 @@
+.aura {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wash,
+.washAlt {
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+}
+
+.wash {
+  opacity: 0.36;
+  background: radial-gradient(
+    70% 55% at 80% 12%,
+    color-mix(in srgb, var(--accent) 45%, transparent),
+    transparent 65%
+  );
+  animation: pulse 8s var(--ease) infinite;
+}
+
+.washAlt {
+  opacity: 0.22;
+  background: radial-gradient(
+    55% 45% at 15% 85%,
+    color-mix(in srgb, var(--accent) 35%, transparent),
+    transparent 65%
+  );
+  animation: pulse 11s var(--ease) infinite reverse;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wash,
+  .washAlt {
+    animation: none;
+    opacity: 0.22;
+  }
+}

@@ -1,0 +1,252 @@
+.page {
+  position: relative;
+  display: grid;
+  gap: 1.6rem;
+  width: min(1180px, calc(100% - 1.5rem));
+  margin: 0 auto;
+  padding: 1.1rem 0 4rem;
+}
+
+.bar {
+  position: sticky;
+  top: 0.55rem;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.45rem 0.55rem 0.45rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgb(8 12 22 / 84%);
+  box-shadow: var(--shadow-card);
+}
+
+.back {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--gilt) 14%, transparent);
+  color: var(--moon);
+  text-decoration: none;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.back:hover {
+  color: var(--gilt);
+}
+
+.crumb {
+  margin: 0;
+  color: var(--mist);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.head {
+  display: grid;
+  gap: 0.7rem;
+  max-width: 46rem;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0;
+  color: var(--mist);
+  line-height: 1.6;
+}
+
+.layout {
+  display: grid;
+  gap: 1.6rem;
+  align-items: start;
+}
+
+@media (min-width: 980px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 21rem;
+  }
+}
+
+.codex {
+  display: grid;
+  gap: 1rem;
+}
+
+.codexKicker {
+  margin: 0;
+  color: var(--gilt);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.group {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 4%), rgb(255 255 255 / 1%)),
+    #0a0f1b;
+}
+
+.groupTitle {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+}
+
+.groupHint {
+  color: var(--mist);
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 400;
+}
+
+.list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.6rem;
+  align-items: baseline;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 0.85rem;
+  transition:
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    background-color 0.25s var(--ease);
+}
+
+.entry[data-lit] {
+  border-color: var(--gilt);
+  background: rgb(212 181 106 / 8%);
+  box-shadow: 0 0 18px rgb(212 181 106 / 18%);
+}
+
+.entryDots {
+  display: inline-flex;
+  gap: 0.22rem;
+  align-items: center;
+  transform: translateY(1px);
+}
+
+.dot,
+.coreDot,
+.awakeDot {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+}
+
+.dot[data-element="pyro"] {
+  background: var(--pyro);
+}
+
+.dot[data-element="hydro"] {
+  background: var(--hydro);
+}
+
+.dot[data-element="anemo"] {
+  background: var(--anemo);
+}
+
+.dot[data-element="electro"] {
+  background: var(--electro);
+}
+
+.dot[data-element="dendro"] {
+  background: var(--dendro);
+}
+
+.dot[data-element="cryo"] {
+  background: var(--cryo);
+}
+
+.dot[data-element="geo"] {
+  background: var(--geo);
+}
+
+.coreDot {
+  border: 1px solid var(--dendro);
+  background: color-mix(in srgb, var(--dendro) 30%, transparent);
+}
+
+.awakeDot {
+  border: 1px dashed var(--electro);
+  background: transparent;
+}
+
+.anyDot {
+  color: var(--moon);
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.entryName {
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.entryText {
+  grid-column: 2;
+  color: var(--mist);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.entryAfter {
+  grid-column: 2;
+  color: color-mix(in srgb, var(--gilt) 65%, var(--mist));
+  font-size: 0.7rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.moonDot,
+.veilDot,
+.starDot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.72rem;
+  height: 0.72rem;
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+.moonDot {
+  color: #8f9bff;
+}
+
+.veilDot {
+  color: var(--geo);
+}
+
+.starDot {
+  color: #9fd8ff;
+}
+
+@media (max-width: 979px) {
+  .codex {
+    grid-template-columns: 1fr;
+  }
+}
