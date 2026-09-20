@@ -24,7 +24,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npx tsc --noEmit && npx vite build --base=/genshin-guide/
+      # кастомный домен геншин-гайд.рф: сайт раздаётся с корня, база "/"
+      - run: npx tsc --noEmit && npx vite build
       # SPA-fallback: прямые ссылки и обновление /personazh/:slug отдают приложение
       - run: cp dist/index.html dist/404.html
       - uses: actions/upload-pages-artifact@v3
