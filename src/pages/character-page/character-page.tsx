@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { CharacterNav } from "../../components/character-nav";
 import { CharacterVideo } from "../../components/character-video";
@@ -19,14 +19,9 @@ const characters = loadCatalogCharacters();
 
 export const CharacterPage = () => {
   const { slug = "" } = useParams();
-  const nameRef = useRef<HTMLHeadingElement | null>(null);
   const character = findCharacterBySlug(characters, slug);
 
   useEffect(() => {
-    if (window.matchMedia("(max-width: 820px)").matches) {
-      nameRef.current?.scrollIntoView({ block: "start" });
-      return;
-    }
     window.scrollTo(0, 0);
   }, [slug]);
 
@@ -78,7 +73,7 @@ export const CharacterPage = () => {
           <p className={styles.kicker}>
             {character.rarity}★ · {character.elementLabel} · {character.weaponLabel}
           </p>
-          <h1 ref={nameRef} className={styles.name}>
+          <h1 className={styles.name}>
             {character.name}
           </h1>
           <p className={styles.epithet}>{character.title}</p>
