@@ -2,11 +2,13 @@ import type {
   Attempt,
   AttemptQuestion,
   AttemptResult,
+  QuizBank,
+  QuizDifficulty,
   QuizQuestion,
 } from "./types";
 
 /** Сколько вопросов в одной попытке. */
-export const ATTEMPT_SIZE = 10;
+export const ATTEMPT_SIZE = 5;
 
 export type Rng = () => number;
 
@@ -48,13 +50,23 @@ const prepareQuestion = (
   };
 };
 
+/** Пул вопросов банка на заданном уровне сложности. */
+export const tierPool = (
+  bank: QuizBank,
+  tier: QuizDifficulty,
+): QuizQuestion[] =>
+  bank.questions.filter((question) => question.difficulty === tier);
+
 /**
  * Собирает попытку: берёт случайные вопросы из пула, идёт от простых к
  * сложным, перемешивает варианты.
  */
 export const buildAttempt = (
+  id: string,
   bankId: Attempt["bankId"],
   bankTitle: string,
+  bankKicker: string,
+  tierLabel: string,
   pool: readonly QuizQuestion[],
   rng: Rng = Math.random,
   size: number = ATTEMPT_SIZE,
@@ -68,8 +80,11 @@ export const buildAttempt = (
       left.id.localeCompare(right.id, "ru"),
   );
   return {
+    testId: id,
     bankId,
     bankTitle,
+    bankKicker,
+    tierLabel,
     questions: picked,
     picks: picked.map(() => null),
   };

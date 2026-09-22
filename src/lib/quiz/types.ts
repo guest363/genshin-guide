@@ -28,6 +28,8 @@ export type QuizBank = {
   /** Стихия-акцент: красит точку карточки и фон-ауру во время теста. */
   element: ElementId;
   questions: QuizQuestion[];
+  /** Сколько вопросов в одной попытке этого банка. */
+  attemptSize: number;
 };
 
 /** Вопрос попытки: варианты перемешаны, `answerIndex` — верный в них. */
@@ -40,9 +42,13 @@ export type AttemptQuestion = {
   difficulty: QuizDifficulty;
 };
 
+/** Один тест: тема × уровень сложности. Отдельная единица прогресса. */
 export type Attempt = {
+  testId: string;
   bankId: QuizBankId;
   bankTitle: string;
+  bankKicker: string;
+  tierLabel: string;
   questions: AttemptQuestion[];
   /** Выбранные индексы вариантов; null — ещё не отвечен. */
   picks: Array<number | null>;
@@ -53,3 +59,12 @@ export type AttemptResult = {
   total: number;
   percent: number;
 };
+
+export const TIER_LABELS: Record<QuizDifficulty, string> = {
+  1: "Лёгкий",
+  2: "Средний",
+  3: "Сложный",
+};
+
+export const testId = (bankId: QuizBankId, tier: QuizDifficulty): string =>
+  `${bankId}-${tier}`;

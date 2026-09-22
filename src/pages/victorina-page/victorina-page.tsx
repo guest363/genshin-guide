@@ -7,6 +7,7 @@ import { STATIC_BANKS } from "../../lib/quiz/banks";
 import {
   buildAttempt,
   gradeAttempt,
+  tierPool,
 } from "../../lib/quiz/engine";
 import {
   nextRank,
@@ -20,7 +21,14 @@ import {
   saveAttemptResult,
   type QuizProgress,
 } from "../../lib/quiz/storage";
-import type { Attempt, AttemptResult, QuizBank } from "../../lib/quiz/types";
+import {
+  TIER_LABELS,
+  testId,
+  type Attempt,
+  type AttemptResult,
+  type QuizBank,
+  type QuizDifficulty,
+} from "../../lib/quiz/types";
 import styles from "./victorina-page.module.css";
 
 const characters = loadCatalogCharacters();
@@ -31,6 +39,8 @@ const banks: QuizBank[] = STATIC_BANKS.map((bank) =>
     ? { ...bank, questions: buildCharactersQuestions(characters) }
     : bank,
 );
+
+const TIERS: QuizDifficulty[] = [1, 2, 3];
 
 const LETTERS = ["А", "Б", "В", "Г"];
 
@@ -66,8 +76,19 @@ export const VictorinaPage = () => {
     ? (banks.find((item) => item.id === attempt.bankId) ?? null)
     : null;
 
-  const startAttempt = (target: QuizBank) => {
-    setAttempt(buildAttempt(target.id, target.title, target.questions));
+  const startAttempt = (target: QuizBank, tier: QuizDifficulty) => {
+    setAttempt(
+      buildAttempt(
+        testId(target.id, tier),
+        target.id,
+        target.title,
+        target.kicker,
+        TIER_LABELS[tier],
+        tierPool(target, tier),
+        Math.random,
+        target.attemptSize,
+      ),
+    );
     setShown(0);
     setOutcome(null);
     scrollUp();
@@ -89,13 +110,13 @@ export const VictorinaPage = () => {
   };
 
   const finish = () => {
-    if (!attempt || !bank) {
+    if (!attempt) {
       return;
     }
     const grade = gradeAttempt(attempt);
-    const previous = progress.banks[bank.id];
+    const previous = progress.banks[attempt.testId];
     const improved = !previous || grade.correct > previous.best;
-    setProgress(saveAttemptResult(bank.id, grade.correct, grade.total));
+    setProgress(saveAttemptResult(attempt.testId, grade.correct, grade.total));
     setOutcome({ grade, improved });
     scrollUp();
   };
@@ -121,9 +142,11 @@ export const VictorinaPage = () => {
             <p className={styles.kicker}>Испытание знаний</p>
             <h1 className={styles.title}>Викторина Тейвата</h1>
             <p className={styles.lead}>
-              Пять испытаний: регионы, персонажи, монстры, история и механики.
-              В каждой попытке десять вопросов, после — разбор с подробными
-              пояснениями. Прогресс сохраняется, тесты можно перепроходить.
+              Пять тем — регионы, персонажи, монстры, история и механики. У
+              каждой темы три испытания: лёгкое, среднее и сложное. Обычно в
+              тесте пять вопросов, в банке персонажей — двадцать. После теста
+              ждёт разбор с пояснениями, прогресс сохраняется, тесты можно
+              перепроходить.
             </p>
           </header>
 
@@ -151,30 +174,45 @@ export const VictorinaPage = () => {
           </section>
 
           <div className={styles.grid}>
-            {banks.map((item) => {
-              const best = bankBestPercent(progress, item.id);
-              return (
-                <article className={styles.card} key={item.id} data-accent={item.element}>
-                  <span className={styles.cardDot} aria-hidden="true" />
-                  <p className={styles.cardKicker}>{item.kicker}</p>
-                  <h2 className={styles.cardTitle}>{item.title}</h2>
-                  <p className={styles.cardLead}>{item.lead}</p>
-                  <p className={styles.cardMeta}>
-                    {item.questions.length >= 10
-                      ? "10 вопросов в попытке"
-                      : `${item.questions.length} вопросов в банке`}
-                    {best !== null ? ` · лучший результат ${best}%` : ""}
-                  </p>
-                  <button
-                    className={styles.cardButton}
-                    type="button"
-                    onClick={() => startAttempt(item)}
-                  >
-                    {best !== null ? "Пройти снова" : "Начать тест"}
-                  </button>
-                </article>
-              );
-            })}
+            {banks.map((item) => (
+              <article
+                className={styles.card}
+                key={item.id}
+                data-accent={item.element}
+              >
+                <span className={styles.cardDot} aria-hidden="true" />
+                <p className={styles.cardKicker}>{item.kicker}</p>
+                <h2 className={styles.cardTitle}>{item.title}</h2>
+                <p className={styles.cardLead}>{item.lead}</p>
+                <div className={styles.tiers}>
+                  {TIERS.map((tier) => {
+                    const best = bankBestPercent(progress, testId(item.id, tier));
+                    const targetSize = item.attemptSize;
+                    return (
+                      <button
+                        className={styles.tierRow}
+                        key={tier}
+                        type="button"
+                        data-tier={tier}
+                        onClick={() => startAttempt(item, tier)}
+                      >
+                        <span className={styles.tierName}>
+                          {TIER_LABELS[tier]}
+                        </span>
+                        <span className={styles.tierMeta}>
+                          {best !== null
+                            ? `лучший результат ${best}%`
+                            : `${targetSize} из ${tierPool(item, tier).length} вопросов`}
+                        </span>
+                        <span className={styles.tierArrow} aria-hidden="true">
+                          →
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </article>
+            ))}
           </div>
         </>
       ) : null}
@@ -190,7 +228,8 @@ export const VictorinaPage = () => {
               ← К тестам
             </button>
             <p className={styles.crumb}>
-              {bank.title} · вопрос {shown + 1} из {attempt.questions.length}
+              {attempt.bankTitle} · {attempt.tierLabel.toLowerCase()} · вопрос{" "}
+              {shown + 1} из {attempt.questions.length}
             </p>
           </div>
 
@@ -242,7 +281,7 @@ export const VictorinaPage = () => {
                   <span className={styles.qDifficulty}>
                     Сложность {ROMAN[question.difficulty]}
                   </span>
-                  <span className={styles.qCategory}>{bank.kicker}</span>
+                  <span className={styles.qCategory}>{attempt.bankKicker}</span>
                 </p>
                 <h1 className={styles.qPrompt}>{question.prompt}</h1>
                 <div className={styles.answers}>
@@ -301,7 +340,9 @@ export const VictorinaPage = () => {
             >
               ← К тестам
             </button>
-            <p className={styles.crumb}>{bank.title} · итоги</p>
+            <p className={styles.crumb}>
+              {attempt.bankTitle} · {attempt.tierLabel.toLowerCase()} · итоги
+            </p>
           </div>
 
           <section className={styles.resultCard}>
@@ -313,14 +354,14 @@ export const VictorinaPage = () => {
               {outcome.improved
                 ? "новая лучшая попытка!"
                 : `лучший результат ${
-                    progress.banks[bank.id]?.best ?? outcome.grade.correct
+                    progress.banks[attempt.testId]?.best ?? outcome.grade.correct
                   } из ${outcome.grade.total}`}
             </p>
             <div className={styles.resultActions}>
               <button
                 className={styles.nextButton}
                 type="button"
-                onClick={() => startAttempt(bank)}
+                onClick={() => startAttempt(bank, attempt.questions[0]!.difficulty)}
               >
                 Пройти снова
               </button>

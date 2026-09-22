@@ -1,5 +1,3 @@
-import type { QuizBankId } from "./types";
-
 const STORAGE_KEY = "teyvat-quiz-v1";
 
 export type BankProgress = {
@@ -10,9 +8,10 @@ export type BankProgress = {
   updatedAt: number;
 };
 
+/** Ключ — идентификатор теста «тема-уровень», например "regions-2". */
 export type QuizProgress = {
   version: 1;
-  banks: Partial<Record<QuizBankId, BankProgress>>;
+  banks: Record<string, BankProgress>;
 };
 
 export const EMPTY_PROGRESS: QuizProgress = { version: 1, banks: {} };
@@ -42,7 +41,7 @@ const readProgress = (raw: string | null): QuizProgress => {
     const banks: QuizProgress["banks"] = {};
     for (const [id, value] of Object.entries((parsed as QuizProgress).banks)) {
       if (isBankProgress(value)) {
-        banks[id as QuizBankId] = value;
+        banks[id] = value;
       }
     }
     return { version: 1, banks };
@@ -76,11 +75,11 @@ const persist = (progress: QuizProgress): void => {
 /** Чистая функция: фиксирует попытку, улучшая лучший результат. */
 export const recordAttempt = (
   progress: QuizProgress,
-  bankId: QuizBankId,
+  testId: string,
   correct: number,
   total: number,
 ): QuizProgress => {
-  const previous = progress.banks[bankId];
+  const previous = progress.banks[testId];
   const best = Math.max(previous?.best ?? 0, correct);
   const next: BankProgress = {
     best,
@@ -90,17 +89,17 @@ export const recordAttempt = (
   };
   return {
     version: 1,
-    banks: { ...progress.banks, [bankId]: next },
+    banks: { ...progress.banks, [testId]: next },
   };
 };
 
 /** Записывает результат попытки и возвращает обновлённый прогресс. */
 export const saveAttemptResult = (
-  bankId: QuizBankId,
+  testId: string,
   correct: number,
   total: number,
 ): QuizProgress => {
-  const next = recordAttempt(loadQuizProgress(), bankId, correct, total);
+  const next = recordAttempt(loadQuizProgress(), testId, correct, total);
   persist(next);
   return next;
 };
@@ -123,9 +122,9 @@ export const overallPercent = (progress: QuizProgress): number => {
 
 export const bankBestPercent = (
   progress: QuizProgress,
-  bankId: QuizBankId,
+  testId: string,
 ): number | null => {
-  const entry = progress.banks[bankId];
+  const entry = progress.banks[testId];
   if (!entry || entry.total === 0) {
     return null;
   }

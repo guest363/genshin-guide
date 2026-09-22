@@ -239,31 +239,63 @@ button.back:hover {
   line-height: 1.5;
 }
 
-.cardMeta {
-  margin: 0.2rem 0 0.5rem;
-  color: color-mix(in srgb, var(--gilt) 60%, var(--mist));
-  font-size: 0.72rem;
+.tiers {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
 }
 
-.cardButton {
-  padding: 0.55rem 0.9rem;
-  border: 1px solid color-mix(in srgb, var(--gilt) 45%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--gilt) 10%, transparent);
+.tierRow {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: var(--panel-inner);
   color: var(--moon);
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
+  text-align: left;
   transition:
-    background 0.25s var(--ease),
     border-color 0.25s var(--ease),
-    color 0.25s var(--ease);
+    background 0.25s var(--ease),
+    transform 0.25s var(--ease);
 }
 
-.cardButton:hover {
-  border-color: var(--gilt);
-  background: color-mix(in srgb, var(--gilt) 22%, transparent);
+.tierRow:hover {
+  border-color: color-mix(in srgb, var(--gilt) 55%, transparent);
+  background: color-mix(in srgb, var(--gilt) 7%, var(--panel-inner));
+  transform: translateX(2px);
+}
+
+.tierName {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.tierRow[data-tier="1"] .tierName {
+  color: var(--frost);
+}
+
+.tierRow[data-tier="2"] .tierName {
   color: var(--gilt);
+}
+
+.tierRow[data-tier="3"] .tierName {
+  color: var(--adaptive);
+}
+
+.tierMeta {
+  color: var(--mist);
+  font-size: 0.72rem;
+  justify-self: end;
+  text-align: right;
+}
+
+.tierArrow {
+  color: var(--gilt);
+  font-size: 0.9rem;
 }
 
 /* ── Прохождение теста ──────────────────────────────────────── */

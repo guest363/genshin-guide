@@ -112,7 +112,7 @@ const archonQuestions = (
     }
     return makeQuestion(
       `archon-${archon.slug}`,
-      2,
+      3,
       "Кто из этих персонажей — Архонт?",
       archon.name,
       names,
@@ -121,14 +121,16 @@ const archonQuestions = (
   }).filter((question): question is QuizQuestion => question !== null);
 };
 
+// Уровни: стихия и оружие знают все, регион/титул/организация — играющие,
+// созвездия и архонтный статус — глубокое знание архива.
 export const buildCharactersQuestions = (
   records: readonly CharacterRecord[],
 ): QuizQuestion[] => [
-  ...fieldQuestions(records, "region", 1, (record) => `Из какого региона ${record.name}?`, (record) => record.regionLabel, (record) => record.region !== "none", undefined, (value) => value !== "Без региона"),
   ...fieldQuestions(records, "element", 1, (record) => `Какой стихией владеет ${record.name}?`, (record) => record.elementLabel, (record) => record.element !== "adaptive"),
   ...fieldQuestions(records, "weapon", 1, (record) => `Какое оружие у ${record.name}?`, (record) => record.weaponLabel),
+  ...fieldQuestions(records, "region", 2, (record) => `Из какого региона ${record.name}?`, (record) => record.regionLabel, (record) => record.region !== "none", undefined, (value) => value !== "Без региона"),
   ...fieldQuestions(records, "title", 2, (record) => `Какой титул носит ${record.name}?`, (record) => record.title),
-  ...fieldQuestions(records, "constellation", 2, (record) => `Как называется созвездие ${record.name}?`, (record) => record.constellation),
   ...fieldQuestions(records, "affiliation", 2, (record) => `К какой организации принадлежит ${record.name}?`, (record) => record.affiliation, (record) => record.affiliation.length > 2),
+  ...fieldQuestions(records, "constellation", 3, (record) => `Как называется созвездие ${record.name}?`, (record) => record.constellation),
   ...archonQuestions(records),
 ];
