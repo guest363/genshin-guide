@@ -58,6 +58,9 @@ export const ArchiveHeader = ({ visible, total }: ArchiveHeaderProps) => (
       <Link className={styles.lab} to="/reakcii">
         Лаборатория реакций →
       </Link>
+      <Link className={styles.lab} to="/victorina">
+        Викторина →
+      </Link>
     </div>
   </header>
 );

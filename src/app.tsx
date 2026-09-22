@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-route
 import { CatalogPage } from "./pages/catalog-page";
 import { CharacterPage } from "./pages/character-page";
 import { ReactionsPage } from "./pages/reactions-page";
+import { VictorinaPage } from "./pages/victorina-page";
 import { trackPageview } from "./lib/metrika";
 
 /** Отправляет хит в Метрику при каждом смене маршрута (SPA). */
@@ -22,6 +23,7 @@ export const App = () => (
       <Route path="/" element={<CatalogPage />} />
       <Route path="/personazh/:slug" element={<CharacterPage />} />
       <Route path="/reakcii" element={<ReactionsPage />} />
+      <Route path="/victorina" element={<VictorinaPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </BrowserRouter>

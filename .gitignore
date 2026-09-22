@@ -5,3 +5,4 @@ playwright-report
 *.log
 *.zip
 .DS_Store
+examples/
