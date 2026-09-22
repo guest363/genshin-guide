@@ -55,6 +55,7 @@ const readFilters = (params: URLSearchParams): CharacterFilters => {
     weapon: readWeapon(params.get("weapon") ?? "all"),
     rarity,
     region: readRegion(params.get("region") ?? "all"),
+    archon: params.get("archon") === "1",
     query: params.get("q") ?? "",
   };
 };
@@ -72,6 +73,9 @@ const writeFilters = (filters: CharacterFilters): URLSearchParams => {
   }
   if (filters.region && filters.region !== "all") {
     params.set("region", filters.region);
+  }
+  if (filters.archon) {
+    params.set("archon", "1");
   }
   if (filters.query?.trim()) {
     params.set("q", filters.query.trim());

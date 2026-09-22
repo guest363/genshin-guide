@@ -158,6 +158,14 @@
   pointer-events: none;
 }
 
+.archonSlot {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 4;
+  pointer-events: none;
+}
+
 .meta {
   display: grid;
   align-content: start;

@@ -7,6 +7,7 @@
   "nameEn": "Furina",
   "title": "Бесконечный танец одиночества",
   "rarity": 5,
+  "archon": true,
   "element": "hydro",
   "elementLabel": "Гидро",
   "weapon": "sword",

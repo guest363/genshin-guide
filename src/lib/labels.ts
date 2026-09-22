@@ -39,3 +39,8 @@ export const REGION_FILTERS: { id: RegionId | "all"; label: string }[] = [
   { id: "snezhnaya", label: "Снежная" },
   { id: "none", label: "Без региона" },
 ];
+
+export const STATUS_FILTERS: { id: "archon" | "all"; label: string }[] = [
+  { id: "all", label: "Все статусы" },
+  { id: "archon", label: "Архонты" },
+];

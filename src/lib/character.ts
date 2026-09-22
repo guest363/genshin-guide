@@ -56,6 +56,8 @@ export type CharacterRecord = {
   nameEn: string;
   title: string;
   rarity: 4 | 5;
+  /** Архонт Тейвата — только для семерки богов. */
+  archon?: boolean;
   element: ElementId;
   elementLabel: string;
   weapon: WeaponId;
@@ -83,5 +85,6 @@ export type CharacterFilters = {
   weapon?: WeaponId | "all";
   rarity?: 4 | 5 | "all";
   region?: RegionId | "all";
+  archon?: boolean;
   query?: string;
 };

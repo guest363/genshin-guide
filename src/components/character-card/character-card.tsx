@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { Link } from "react-router-dom";
 import type { CharacterRecord } from "../../lib/character";
 import { cn } from "../../lib/cn";
+import { ArchonSign } from "../archon-sign";
 import { ElementSparks } from "../element-sparks";
 import styles from "./character-card.module.css";
 
@@ -136,6 +137,7 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
         className={styles.card}
         data-element={character.element}
         data-rarity={character.rarity}
+        data-archon={character.archon ? "true" : undefined}
         onPointerMove={onPointerMove}
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
@@ -154,6 +156,11 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
                 width={320}
                 height={400}
               />
+              {character.archon ? (
+                <span className={styles.archonSlot}>
+                  <ArchonSign />
+                </span>
+              ) : null}
               {live ? <ElementSparks element={character.element} /> : null}
               <span className={styles.shade} />
             </span>

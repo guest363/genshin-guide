@@ -7,6 +7,7 @@
   "nameEn": "Mavuika",
   "title": "Пылающая ночь",
   "rarity": 5,
+  "archon": true,
   "element": "pyro",
   "elementLabel": "Пиро",
   "weapon": "claymore",

@@ -58,6 +58,12 @@
   color: var(--gilt);
 }
 
+.chipStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
 .reset {
   justify-self: start;
   padding: 0.5rem 0.9rem;

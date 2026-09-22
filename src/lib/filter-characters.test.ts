@@ -75,6 +75,21 @@ describe("фильтры витрины на реальных данных", () 
     }
   });
 
+  it("фильтр по статусу оставляет только архонтов из исследований", () => {
+    const archons = filterCharacters(characters, { archon: true });
+    expect(archons.map((character) => character.slug).sort()).toEqual([
+      "furina",
+      "mavuika",
+      "nahida",
+      "raiden-shogun",
+      "venti",
+      "zhongli",
+    ]);
+    for (const character of archons) {
+      expect(character.archon).toBe(true);
+    }
+  });
+
   it("поиск по имени находит персонажа из исследований", () => {
     const found = filterCharacters(characters, { query: "чжун" });
     expect(found.some((character) => character.slug === "zhongli")).toBe(true);

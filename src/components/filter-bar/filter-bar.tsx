@@ -1,9 +1,11 @@
 import type { CharacterFilters } from "../../lib/character";
+import { ArchonSign } from "../archon-sign";
 import { cn } from "../../lib/cn";
 import {
   ELEMENT_FILTERS,
   RARITY_FILTERS,
   REGION_FILTERS,
+  STATUS_FILTERS,
   WEAPON_FILTERS,
 } from "../../lib/labels";
 import styles from "./filter-bar.module.css";
@@ -92,6 +94,28 @@ export const FilterBar = ({ value, onChange }: FilterBarProps) => {
       </div>
 
       <div className={styles.group}>
+        <p className={styles.label}>Статус</p>
+        <div className={styles.chips}>
+          {STATUS_FILTERS.map((item) => (
+            <button
+              className={cn(
+                styles.chip,
+                styles.chipStatus,
+                isActive(value.archon ? "archon" : "all", item.id) &&
+                  styles.chipActive,
+              )}
+              key={item.id}
+              type="button"
+              onClick={() => patch({ archon: item.id === "archon" })}
+            >
+              {item.id === "archon" ? <ArchonSign variant="star" /> : null}
+              {item.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className={styles.group}>
         <p className={styles.label}>Регион</p>
         <div className={styles.chips}>
           {REGION_FILTERS.map((item) => (
@@ -119,6 +143,7 @@ export const FilterBar = ({ value, onChange }: FilterBarProps) => {
             weapon: "all",
             rarity: "all",
             region: "all",
+            archon: false,
             query: "",
           })
         }

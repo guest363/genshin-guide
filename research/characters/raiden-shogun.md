@@ -7,6 +7,7 @@
   "nameEn": "Raiden Shogun",
   "title": "Царство эвтюмии",
   "rarity": 5,
+  "archon": true,
   "element": "electro",
   "elementLabel": "Электро",
   "weapon": "polearm",

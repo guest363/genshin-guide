@@ -7,6 +7,7 @@
   "nameEn": "Venti",
   "title": "Поэт ветров",
   "rarity": 5,
+  "archon": true,
   "element": "anemo",
   "elementLabel": "Анемо",
   "weapon": "bow",

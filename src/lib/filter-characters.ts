@@ -36,6 +36,9 @@ export const filterCharacters = (
     ) {
       continue;
     }
+    if (filters.archon && character.archon !== true) {
+      continue;
+    }
     if (query) {
       const haystack = `${character.name} ${character.shortName} ${character.nameEn} ${character.title}`.toLowerCase();
       if (!haystack.includes(query)) {

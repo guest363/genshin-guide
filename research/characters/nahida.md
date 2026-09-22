@@ -7,6 +7,7 @@
   "nameEn": "Nahida",
   "title": "Средоточие чистоты",
   "rarity": 5,
+  "archon": true,
   "element": "dendro",
   "elementLabel": "Дендро",
   "weapon": "catalyst",

@@ -7,6 +7,7 @@
   "nameEn": "Zhongli",
   "title": "Бренный скиталец",
   "rarity": 5,
+  "archon": true,
   "element": "geo",
   "elementLabel": "Гео",
   "weapon": "polearm",

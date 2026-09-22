@@ -205,6 +205,9 @@ export const parseCharacterMarkdown = (raw: string): CharacterRecord => {
   if (rarity !== 4 && rarity !== 5) {
     throw new Error("Редкость должна быть 4 или 5");
   }
+  if (parsed.archon !== undefined && typeof parsed.archon !== "boolean") {
+    throw new Error("Поле archon должно быть булевым");
+  }
 
   return {
     id: readString(parsed.id, "id"),
@@ -214,6 +217,7 @@ export const parseCharacterMarkdown = (raw: string): CharacterRecord => {
     nameEn: readString(parsed.nameEn, "nameEn"),
     title: readString(parsed.title, "title"),
     rarity,
+    archon: parsed.archon === true ? true : undefined,
     element: element as ElementId,
     elementLabel: readString(parsed.elementLabel, "elementLabel"),
     weapon: weapon as WeaponId,
