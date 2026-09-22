@@ -202,7 +202,7 @@ export const VictorinaPage = () => {
                         <span className={styles.tierMeta}>
                           {best !== null
                             ? `лучший результат ${best}%`
-                            : `${targetSize} из ${tierPool(item, tier).length} вопросов`}
+                            : `${targetSize} вопросов`}
                         </span>
                         <span className={styles.tierArrow} aria-hidden="true">
                           →
